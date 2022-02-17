@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      #div1,
+      #div2 {
+        float: left;
+        width: 198px;
+        height: 400px;
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #aaaaaa;
+        position: relative;
+      }
+    </style>
+    <script type="text/javascript">
+      function allowDrop(ev) {
+        ev.preventDefault();
+      }
+
+      function drag(ev) {
+        ev.dataTransfer.setData("Text", ev.target.id);
+      }
+
+      function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("Text");
+        let dom = document.getElementById(data);
+        dom.style.left = ev.offsetX + "px";
+        dom.style.top = ev.offsetY + "px";
+        dom.style.position = "absolute";
+        ev.target.appendChild(dom);
+      }
+    </script>
+  </head>
+  <body>
+    <img
+      src="./xiaozhan.jpeg"
+      draggable="true"
+      ondragstart="drag(event)"
+      id="drag1"
+    />
+
+    <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  </body>
+</html>

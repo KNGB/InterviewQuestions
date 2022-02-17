@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>拖拽框</title>
+    <style>
+      .Contanier {
+        width: 1900px;
+        height: 600px;
+        background-color: black;
+        position: relative;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: aliceblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="Contanier"
+      ondragover="allowDrop(event)"
+      ondrop="drop(event)"
+    ></div>
+
+    <div class="box" id="box1" draggable="true" ondragstart="drag(event)"></div>
+    <script type="text/javascript">
+      function drag(ev) {
+        console.log(ev);
+        ev.dataTransfer.setData("Text", ev.target.id);
+      }
+
+      function allowDrop(ev) {
+        ev.preventDefault();
+      }
+
+      function drop(ev) {
+        console.log(ev);
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("Text");
+        let dom = document.getElementById(data);
+        dom.style.left = ev.offsetX + "px";
+        dom.style.top = ev.offsetY + "px";
+        dom.style.position = "absolute";
+        ev.target.appendChild(dom);
+      }
+    </script>
+  </body>
+</html>
